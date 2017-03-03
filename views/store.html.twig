@@ -1,0 +1,29 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+    <h2>{{ store.getName }}</h2>
+
+    {% if brands is not empty %}
+        <p>Here are the shoes that are sold at this store: </p>
+        <ul>
+            {% for brand in brands %}
+                <li>{{ brand.getName }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h3>Add a shoe sold at this store: </h3>
+
+    <form action='/add_brand' method='post'>
+        <input id='store_id' type=hidden name='store_id' value='{{ store.getId }}'>
+        <label for='brand_id'>Select a shoe</label>
+        <select id'brand_id' name='brand_id' type='text'>
+            {% for brand in all_brands %}
+                <option value='{{ brand.getId }}'> {{ brand.getName }}</option>
+            {% endfor %}
+        </select>
+        <button type='submit'>Add shoe</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+{% endblock %}
