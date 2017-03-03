@@ -1,12 +1,19 @@
 {% extends 'index.html.twig' %}
 
 {% block content %}
-    <h1>Update the {{ brand.getName }} shoe </h1>
+    <h1>Update {{ brand.getName }} </h1>
 
     <form action="/brands/{{ brand.getId }}" method="post">
         <input name="_method" type="hidden" value="patch">
         <label for="name">Change shoe brand:</label>
         <input id="brand" name="brand" type="text">
+
         <button type="submit">Update</button>
+    </form>
+    <br>
+    <form action="/brands/{{ brand.getId }}" method="post">
+        <input name="_method" type="hidden" value="delete">
+
+        <button type="submit">Delete this shoe</button>
     </form>
 {% endblock %}

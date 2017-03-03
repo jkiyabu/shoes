@@ -56,6 +56,12 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
+    $app->delete('/brands/{id}', function($id) use ($app) {
+        $brand = Brand::find($id);
+        $brand->delete();
+        return $app->redirect("/brands");
+    });
+
     $app->get('/stores', function() use ($app) {
         $stores = Store::getAll();
         return $app['twig']->render('stores.html.twig', array('stores' => $stores));
