@@ -5,6 +5,7 @@
 */
 
 require_once 'src/Store.php';
+
 $server = 'mysql:host=localhost:3306;dbname=shoes_test';
 $username = 'root';
 $password = 'root';
@@ -12,6 +13,10 @@ $DB = new PDO($server, $username, $password);
 
 class StoreTest extends PHPUnit_Framework_TestCase
 {
+    protected function tearDown()
+    {
+        Store::deleteAll();
+    }
 
     function test_getId()
     {
@@ -50,9 +55,56 @@ class StoreTest extends PHPUnit_Framework_TestCase
         //Act
         $test_Store->setName($new_name);
         $result = $test_Store->getName();
-        
+
         //Assert
         $this->assertEquals('Foot Action', $result);
+    }
+
+    function test_save()
+    {
+        //Arrange
+        $name = 'Champs';
+        $test_Store = new Store($name);
+
+        //Act
+        $test_Store->save();
+        $result = Store::getAll();
+
+        //Assert
+        $this->assertEquals([$test_Store], $result);
+    }
+
+    function test_getAll()
+    {
+        //Arrange
+        $name1 = 'Champs';
+        $name2 = 'Foot Action';
+        $test_Store1 = new Store($name1);
+        $test_Store1->save();
+        $test_Store2 = new Store($name2);
+        $test_Store2->save();
+        //Act
+        $result = Store::getAll();
+        //Assert
+        $this->assertEquals([$test_Store1, $test_Store2], $result);
+    }
+
+    function test_deleteAll()
+    {
+        //Arrange
+        $name1 = 'Champs';
+        $name2 = 'Foot Action';
+        $test_Store1 = new Store($name1);
+        $test_Store1->save();
+        $test_Store2 = new Store($name2);
+        $test_Store2->save();
+
+        //Act
+        Store::deleteAll();
+        $result = Store::getAll();
+
+        //Assert
+        $this->assertEquals([], $result);
     }
 }
 ?>
