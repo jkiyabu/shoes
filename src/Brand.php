@@ -30,6 +30,20 @@
             $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
+
+        static function find($search_id)
+        {
+            $found_brand = null;
+            $brands = Brand::getAll();
+            foreach($brands as $brand) {
+                $id = $brand->getId();
+                if ($id == $search_id) {
+                $found_brand = $brand;
+                }
+            }
+            return $found_brand;
+        }
+
         static function getAll()
         {
             $brands = [];
@@ -42,6 +56,7 @@
             }
             return $brands;
         }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM brands;");

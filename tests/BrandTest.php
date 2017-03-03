@@ -24,8 +24,10 @@ class BrandTest extends PHPUnit_Framework_TestCase
         $name = 'Nike';
         $id = 1;
         $test_Brand = new Brand($name, $id);
+
         //Act
         $result = $test_Brand->getId();
+
         //Assert
         $this->assertEquals(1, $result);
     }
@@ -35,8 +37,10 @@ class BrandTest extends PHPUnit_Framework_TestCase
         //Arrange
         $name = 'Nike';
         $test_Brand = new Brand($name);
+
         //Act
         $result = $test_Brand->getName();
+
         //Assert
         $this->assertEquals('Nike', $result);
     }
@@ -47,21 +51,25 @@ class BrandTest extends PHPUnit_Framework_TestCase
         $name = 'Nike';
         $new_name = 'Adidas';
         $test_Brand = new Brand($name);
+
         //Act
         $test_Brand->setName($new_name);
         $result = $test_Brand->getName();
+
         //Assert
         $this->assertEquals('Adidas', $result);
     }
 
-function test_save()
+    function test_save()
     {
         //Arrange
         $name = 'Nike';
         $test_Brand = new Brand($name);
+
         //Act
         $test_Brand->save();
         $result = Brand::getAll();
+
         //Assert
         $this->assertEquals([$test_Brand], $result);
     }
@@ -75,11 +83,14 @@ function test_save()
         $test_Brand1->save();
         $test_Brand2 = new Brand($name2);
         $test_Brand2->save();
+
         //Act
         $result = Brand::getAll();
+
         //Assert
         $this->assertEquals([$test_Brand1, $test_Brand2], $result);
     }
+
     function test_deleteAll()
     {
         //Arrange
@@ -89,11 +100,30 @@ function test_save()
         $test_Brand1->save();
         $test_Brand2 = new Brand($name2);
         $test_Brand2->save();
+
         //Act
         Brand::deleteAll();
         $result = Brand::getAll();
+
         //Assert
         $this->assertEquals([], $result);
+    }
+
+    function test_find()
+    {
+        //Arrange
+        $name1 = 'Nike';
+        $name2 = 'Adidas';
+        $test_Brand1 = new Brand($name1);
+        $test_Brand1->save();
+        $test_Brand2 = new Brand($name2);
+        $test_Brand2->save();
+
+        //Act
+        $result = Brand::find($test_Brand1->getId());
+
+        //Assert
+        $this->assertEquals($test_Brand1, $result);
     }
 }
 ?>
