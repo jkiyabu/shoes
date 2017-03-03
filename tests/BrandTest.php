@@ -167,8 +167,8 @@ class BrandTest extends PHPUnit_Framework_TestCase
         $test_Brand = new Brand($name);
         $test_Brand->save();
 
-        $name = 'Champs';
-        $test_Store = new Store($name);
+        $name2 = 'Champs';
+        $test_Store = new Store($name2);
         $test_Store->save();
 
         //Act
