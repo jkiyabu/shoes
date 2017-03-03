@@ -13,6 +13,9 @@
 
     $app['debug'] = true;
 
+    use Symfony\Component\HttpFoundation\Request;
+    Request::enableHttpMethodParameterOverride();
+
     $app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__.'/../views'));
 
     $app->get('/', function() use ($app) {
@@ -29,6 +32,11 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
+    $app->get('/brands/{id}/edit', function($id) use ($app) {
+        $brand = Brand::find($id);
+        return $app['twig']->render('brand_edit.html.twig', array('brand' => $brand));
+    });
+
     $app->post('/brands', function() use ($app) {
         $brand = new Brand($_POST['brand_name']);
         $brand->save();
@@ -39,6 +47,13 @@
     $app->post('/delete_brands', function() use ($app) {
         Brand::deleteAll();
         return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
+    });
+
+    $app->patch('/brands/{id}', function($id) use ($app) {
+        $new_brand = $_POST['brand'];
+        $brand = Brand::find($id);
+        $brand->update($new_brand);
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
     $app->get('/stores', function() use ($app) {
