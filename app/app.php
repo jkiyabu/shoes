@@ -18,6 +18,18 @@
     $app->get('/', function() use ($app) {
         return $app['twig']->render('index.html.twig');
     });
-    
+
+    $app->get('/brands', function() use ($app) {
+        $brands = Brand::getAll();
+        return $app['twig']->render('brands.html.twig', array('brands' => $brands));
+    });
+
+    $app->post('/brands', function() use ($app) {
+        $brand = new Brand($_POST['brand_name']);
+        $brand->save();
+        $brands = Brand::getAll();
+        return $app['twig']->render('brands.html.twig', array('brands' => $brands));
+    });
+
     return $app;
 ?>

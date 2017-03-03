@@ -1,0 +1,19 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+    {% if brands is not empty %}
+        <h2>List of shoe brands:</h2>
+        <ul>
+            {% for brand in brands %}
+                <li><a href='/brands/{{ brand.getId }}'>{{ brand.getName }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/brands' method='post'>
+        <label for='brand_name'>Shoe brand</label>
+        <input type='text' name='brand_name' id='brand_name'>
+
+        <button type=submit>Add</button>
+    <p><a href='/'>Home</a></p>
+{% endblock %}
