@@ -110,5 +110,11 @@
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
     });
 
+    $app->delete('/stores/{id}', function($id) use ($app) {
+        $store = Store::find($id);
+        $store->delete();
+        return $app->redirect("/stores");
+    });
+
     return $app;
 ?>
