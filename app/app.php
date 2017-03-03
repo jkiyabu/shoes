@@ -31,5 +31,10 @@
         return $app['twig']->render('brands.html.twig', array('brands' => $brands));
     });
 
+    $app->post('/delete_shoes', function() use ($app) {
+        Brand::deleteAll();
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
+    });
+
     return $app;
 ?>
