@@ -31,6 +31,19 @@ class Store
         $this->id = $GLOBALS['DB']->lastInsertId();
     }
 
+    static function find($search_id)
+    {
+        $found_store = null;
+        $stores = Store::getAll();
+        foreach($stores as $store) {
+            $id = $store->getId();
+            if ($id == $search_id) {
+            $found_store = $store;
+            }
+        }
+        return $found_store;
+    }
+
     static function getAll()
     {
         $stores = [];
@@ -43,7 +56,7 @@ class Store
         }
         return $stores;
     }
-    
+
     static function deleteAll()
     {
         $GLOBALS['DB']->exec("DELETE FROM stores;");
