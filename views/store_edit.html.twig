@@ -1,0 +1,13 @@
+{% extends 'index.html.twig' %}
+
+{% block content %}
+    <h2>Update {{ store.getName }} </h2>
+
+    <form action="/stores/{{ store.getId }}" method="post">
+        <input name="_method" type="hidden" value="patch">
+        <label for="name">Change shoe store:</label>
+        <input id="name" name="name" type="text">
+
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}

@@ -22,8 +22,9 @@
                 <option value='{{ brand.getId }}'> {{ brand.getName }}</option>
             {% endfor %}
         </select>
+
         <button type='submit'>Add shoe</button>
     </form>
-
+    <p><a href="/stores/{{ store.getId }}/edit">Edit this store</a></p>
     <p><a href='/'>Home</a></p>
 {% endblock %}

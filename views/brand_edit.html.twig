@@ -1,7 +1,7 @@
 {% extends 'index.html.twig' %}
 
 {% block content %}
-    <h1>Update {{ brand.getName }} </h1>
+    <h2>Update {{ brand.getName }} </h2>
 
     <form action="/brands/{{ brand.getId }}" method="post">
         <input name="_method" type="hidden" value="patch">
