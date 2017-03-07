@@ -17,7 +17,7 @@
     <form action='/add_brand' method='post'>
         <input id='store_id' type=hidden name='store_id' value='{{ store.getId }}'>
         <label for='brand_id'>Select a shoe</label>
-        <select id'brand_id' name='brand_id' type='text'>
+        <select id='brand_id' name='brand_id' type='text'>
             {% for brand in all_brands %}
                 <option value='{{ brand.getId }}'> {{ brand.getName }}</option>
             {% endfor %}

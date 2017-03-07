@@ -6,7 +6,7 @@
     <form action="/brands/{{ brand.getId }}" method="post">
         <input name="_method" type="hidden" value="patch">
         <label for="name">Change shoe brand:</label>
-        <input id="brand" name="brand" type="text">
+        <input required id="brand" name="brand" type="text">
 
         <button type="submit">Update</button>
     </form>
